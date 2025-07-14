@@ -75,5 +75,37 @@ public class consultasDAO {
         return id;
     }
     //! metodo para eliminar los datos de la DataBases
+    public int eliminarDatos (Usuarios oUrs) throws SQLException{
+        int id = 0;
+        String sql = "DELETE FROM airtransec.usuarios WHERE  usuario_id = ? ;";
+        PreparedStatement ps = l_cnn.cnn.prepareStatement(sql);
+        ps.setInt(1, oUrs.getUsuario_id());
+        id = ps.executeUpdate();
+        ps.close();
+        return id;
+    }
+
+    //! metodo para actualizar los datos en la dataBase
+    public int actualizarDatos (Usuarios oUrs) throws SQLException {
+        int id = 0;
+        String sql = "UPDATE airtransec.usuarios SET nombre = ?, apellido = ?, email = ?, contraseña_hash = ?, telefono = ?, fecha_nacimiento = ?, direccion = ?, ciudad = ?, pais = ?, pasaporte_numero = ?, ultimo_acceso = ?, estado = ? WHERE usuario_id = ?;";
+        PreparedStatement ps = l_cnn.cnn.prepareStatement(sql);
+        ps.setString(1, oUrs.getNombre());
+        ps.setString(2, oUrs.getApellido());
+        ps.setString(3, oUrs.getEmail());
+        ps.setString(4, oUrs.getContrasena_hash());
+        ps.setString(5, oUrs.getTelefono());
+        ps.setDate(6, java.sql.Date.valueOf(oUrs.getFecha_nacimineto()));
+        ps.setString(7, oUrs.getDireccion());
+        ps.setString(8, oUrs.getCiudad());
+        ps.setString(9, oUrs.getPais());
+        ps.setString(10, oUrs.getPasaporte_numero());
+        ps.setTimestamp(11, java.sql.Timestamp.valueOf(oUrs.getUltimo_acceso()));
+        ps.setString(12, oUrs.getEstado().name());
+        ps.setInt(13, oUrs.getUsuario_id());
+        id = ps.executeUpdate();
+        ps.close();
+        return id;
+    }
 
 }
