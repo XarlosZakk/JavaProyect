@@ -74,4 +74,6 @@ public class consultasDAO {
         ps.close();
         return id;
     }
+    //! metodo para eliminar los datos de la DataBase
+
 }
